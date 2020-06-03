@@ -1,9 +1,14 @@
 import pandas as pd
-# def leaveOneOut(dataSet, selectedSet, nextFeature):
-#     NUM_ITEM = np.size(dataSet, 0)
+import nn
+def leaveOneOut(dataSet, selectedSet, feature):
+    NUM_ITEM = len(dataSet)
+    distSet = []
+    top = 0
+    bottom = NUM_ITEM
+    # sortedSet = dataSet.sort_values(feature)
+    # col = pd.Series(sortedSet[feature])
+    for i in range(NUM_ITEM):
+        top = top + nn.nearNeighbor(dataSet, selectedSet, feature, i)
+    return (top/bottom)
     
-#     for i in range(NUM_ITEM):
-#         copySet[0]
-data = pd.read_csv("cs_170_small34.txt", header=None, sep=r"\s+")
-with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-    print(data)
+    
