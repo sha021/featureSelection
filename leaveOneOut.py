@@ -1,14 +1,12 @@
-import pandas as pd
-import nn
-def leaveOneOut(dataSet, selectedSet, feature):
-    NUM_ITEM = len(dataSet)
-    distSet = []
+from nn import nearNeighbor
+
+def leaveOneOut(classSet, choppedSet):
+    NUM_ITEM = len(choppedSet)
     top = 0
-    bottom = NUM_ITEM
-    # sortedSet = dataSet.sort_values(feature)
-    # col = pd.Series(sortedSet[feature])
+
     for i in range(NUM_ITEM):
-        top = top + nn.nearNeighbor(dataSet, selectedSet, feature, i)
-    return (top/bottom)
-    
+        predict = nearNeighbor(i, choppedSet)
+        if (classSet[predict] == classSet[i]) :
+            top += 1
+    return (top/NUM_ITEM)
     
